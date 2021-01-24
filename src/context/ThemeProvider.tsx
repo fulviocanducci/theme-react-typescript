@@ -1,19 +1,19 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext } from 'react';
 
-import { IChildren, ITheme, IThemeContext, IThemeItem } from "./../interfaces";
+import { IChildren, ITheme, IThemeContext, IThemeItem } from './../interfaces';
 
-export const ThemeContext = createContext({} as IThemeContext);
+export const ThemeContext = createContext<Partial<IThemeContext>>({});
 
 function ThemeProvider({ children }: IChildren) {
   const [themes, setThemes] = useState<ITheme | null>({
     black: {
-      background: "#000000",
-      color: "#FFFFFF"
+      background: '#000000',
+      color: '#FFFFFF',
     },
     white: {
-      background: "#FFFFFF",
-      color: "#000000"
-    }
+      background: '#FFFFFF',
+      color: '#000000',
+    },
   });
   return (
     <ThemeContext.Provider value={{ themes, setThemes }}>
@@ -28,14 +28,14 @@ export function useThemeContext(): [
   string
 ] {
   const context = useContext(ThemeContext);
-  const [themeDefault, setThemeDefault] = useState("black");
+  const [themeDefault, setThemeDefault] = useState('black');
 
   function toogleTheme(e: React.MouseEvent): void {
-    setThemeDefault((state) => (themeDefault === "white" ? "black" : "white"));
+    setThemeDefault((state) => (themeDefault === 'white' ? 'black' : 'white'));
   }
 
   const theme: IThemeItem | undefined =
-    themeDefault === "white" ? context.themes?.white : context.themes?.black;
+    themeDefault === 'white' ? context.themes?.white : context.themes?.black;
 
   return [theme, toogleTheme, themeDefault];
 }
