@@ -1,17 +1,21 @@
+import { useEffect } from "react";
 import { useThemeContext } from "../../context/ThemeProvider";
+import "./index.css";
 
 export default function App() {
-  const [theme, toogleTheme, themeDefault] = useThemeContext();
+  const [theme, toogleTheme] = useThemeContext();
+  useEffect(() => {
+    document.body.style.backgroundColor = theme.background;
+  }, [theme]);
   return (
     <div>
-      <h1>{themeDefault}</h1>
-      <div className="App" style={{ background: theme.background }}>
+      <div className="App">
         <h1 style={{ color: theme.color }}>Themas</h1>
         <h2 style={{ color: theme.color }}>
-          Start editing to see some magic happen!
+          Mudando a cor do layout While e Black
         </h2>
       </div>
-      <button onClick={toogleTheme}>Mudar</button>
+      <button onClick={toogleTheme}>Mudar a cor</button>
     </div>
   );
 }
